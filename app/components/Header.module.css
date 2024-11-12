@@ -1,0 +1,19 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: green;
+  }
+  
+  .navList {
+    list-style: none;
+    display: flex;
+    gap: 16px;
+    background-color: pink;
+  }
+  
+  .navList li {
+    margin: 0;
+    background-color: yellow;
+  }
