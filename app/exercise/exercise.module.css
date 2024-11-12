@@ -1,43 +1,66 @@
 /* app/exercise/exercise.module.css */
 
 .main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 80vh;
-    padding: 16px;
-    text-align: center;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  padding: 16px;
+  text-align: center;
+}
+
+.timer {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+.exerciseName h2 {
+  font-size: 36px;
+  margin: 0;
+}
+
+.exerciseName p {
+  font-size: 18px;
+  margin-top: 8px;
+  color: #666;
+}
+
+@media (min-width: 768px) {
   .timer {
-    font-size: 48px;
-    font-weight: bold;
-    margin-bottom: 24px;
+    font-size: 64px;
   }
-  
+
   .exerciseName h2 {
-    font-size: 36px;
-    margin: 0;
+    font-size: 48px;
   }
-  
+
   .exerciseName p {
-    font-size: 18px;
-    margin-top: 8px;
-    color: #666;
+    font-size: 24px;
   }
-  
-  @media (min-width: 768px) {
-    .timer {
-      font-size: 64px;
-    }
-  
-    .exerciseName h2 {
-      font-size: 48px;
-    }
-  
-    .exerciseName p {
-      font-size: 24px;
-    }
-  }
-  
+}
+
+.skipButton {
+  background-color: #F5F5F5;
+  border: 2px solid #364F6B;
+  border-radius: 4px;
+  color: #364F6B;
+  font-size: 16px;
+  padding: 8px 16px;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+.skipButton:hover {
+  background-color: #364F6B;
+  color: #F5F5F5;
+}
+
+.skipButton:active {
+  transform: scale(0.95);
+}
+
+.skipButton:focus {
+  outline: none;
+}
