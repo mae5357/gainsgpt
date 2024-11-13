@@ -68,3 +68,14 @@ html {
 body :not(:is(h1, h2, h3, h4, h5, h6)) {
   line-height: 1.75;
 }
+
+.gradient-background {
+  background: linear-gradient(
+    /* 90deg, Set gradient angle */
+    var(--primary-2),
+    var(--primary-4)
+  );
+
+  /* Set gradient to cover the whole screen */
+  height: 100vh;
+}
