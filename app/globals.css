@@ -6,7 +6,7 @@
   --primary-5: #ff4365ff;
 
   --text-light: #f4f4f4;
-  --text-dark: #333;
+  --text-dark: #364F6B;
 }
 
 * {
@@ -20,7 +20,8 @@ body {
 }
 
 
-header, footer {
+header,
+footer {
   color: var(--text-dark);
   padding: 1rem 0;
 }
@@ -36,7 +37,8 @@ main {
     padding: 0 0.5rem;
   }
 
-  header, footer {
+  header,
+  footer {
     padding: 0.5rem 0;
   }
 
@@ -44,6 +46,7 @@ main {
     font-size: 16px;
   }
 }
+
 html {
   max-width: 70ch;
   /* larger spacing on larger screens, very small spacing on tiny screens */
@@ -56,13 +59,12 @@ html {
   font-family: system-ui;
 
   color: var(--text-dark)
+    /* use a light gray background color */
 
-  /* use a light gray background color */
-  
-   
- }
+
+}
 
 /* increase line-height for everything except headings */
-body :not(:is(h1,h2,h3,h4,h5,h6)) {
+body :not(:is(h1, h2, h3, h4, h5, h6)) {
   line-height: 1.75;
 }
