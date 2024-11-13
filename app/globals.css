@@ -1,3 +1,14 @@
+:root {
+  --primary-1: #fb8b24ff;
+  --primary-2: #00bcf5ff;
+  --primary-3: #77cf4fff;
+  --primary-4: #d68fd6ff;
+  --primary-5: #ff4365ff;
+
+  --text-light: #f4f4f4;
+  --text-dark: #333;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -10,7 +21,7 @@ body {
 
 
 header, footer {
-  color: #fff;
+  color: var(--text-dark);
   padding: 1rem 0;
 }
 
@@ -44,11 +55,10 @@ html {
   /* use system font stack: https://developer.mozilla.org/en-US/docs/Web/CSS/font-family */
   font-family: system-ui;
 
-  /* use a light gray text color */
-  color: #3FC1C9;
+  color: var(--text-dark)
 
   /* use a light gray background color */
-  background-color: #F5F5F5;
+  
    
  }
 

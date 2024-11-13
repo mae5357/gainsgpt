@@ -6,18 +6,28 @@ import { useState, useEffect } from 'react';
 import styles from './exercise.module.css';
 
 const EXERCISES = [
-  { name: 'Push-ups', duration: 3 },
-  { name: 'Squats', duration: 3 },
-  { name: 'Lunges', duration: 3 },
+  { name: 'Push-ups', duration: 30 },
+  { name: 'Squats', duration: 30 },
+  { name: 'Lunges', duration: 30 },
+];
+
+const BACKGROUND_COLORS = [
+  '#fb8b24ff',
+  '#00bcf5ff',
+  '#77cf4fff',
+  '#d68fd6ff',
+  '#ff4365ff',
 ];
 
 export default function ExercisePage() {
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(EXERCISES[0].duration);
   const [isRest, setIsRest] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState(BACKGROUND_COLORS[0]);
 
   useEffect(() => {
     let timer = null;
+    let backgroundColorIndex = 0;
 
     if (timeLeft > 0) {
       timer = setInterval(() => {
@@ -25,10 +35,18 @@ export default function ExercisePage() {
       }, 1000);
     } else {
       clearInterval(timer);
-
+      backgroundColorIndex = currentExerciseIndex *2 % BACKGROUND_COLORS.length;
+      setBackgroundColor(BACKGROUND_COLORS[backgroundColorIndex]);
+      
       if (isRest) {
+        // background color change
+        backgroundColorIndex = (currentExerciseIndex *2 +1) % BACKGROUND_COLORS.length;
+        setBackgroundColor(BACKGROUND_COLORS[backgroundColorIndex]);
+    
         // Rest period is over, move to next exercise
         const nextIndex = currentExerciseIndex + 1;
+
+        // Check if there are more exercises
         if (nextIndex < EXERCISES.length) {
           setCurrentExerciseIndex(nextIndex);
           setTimeLeft(EXERCISES[nextIndex].duration);
@@ -51,9 +69,9 @@ export default function ExercisePage() {
   }, [timeLeft, isRest]);
 
   const currentExercise = EXERCISES[currentExerciseIndex];
-
+  
   return (
-    <main className={styles.main}>
+    <main className={styles.main} style={{backgroundColor}}>
       <div className={styles.timer}>{timeLeft}s</div>
       <div className={styles.exerciseName}>
         {isRest ? (
