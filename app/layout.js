@@ -1,4 +1,5 @@
 import './globals.css';
+import styles from './globals.css';
 import Header from './components/Header';
 
 export const metadata = {
@@ -9,7 +10,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className='gradient-background'>
+      <body className={styles.RootLayout}>
         <Header />
         {children}
       </body>

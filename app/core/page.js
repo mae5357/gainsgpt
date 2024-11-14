@@ -3,23 +3,25 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import styles from './exercise.module.css';
+import styles from './core.module.css';
 
 const EXERCISES = [
-  { name: 'Push-ups', duration: 30 },
-  { name: 'Squats', duration: 30 },
-  { name: 'Lunges', duration: 30 },
+  { name: 'bird dogs', duration: 30 },
+  { name: 'Side planks w/dips', duration: 30 },
+  { name: 'Russian twists', duration: 30 },
+  { name: 'Pushups', duration: 30 },
+  { name: '6 inches', duration: 30 },
 ];
 
 const BACKGROUND_COLORS = [
-  '#fb8b24ff',
-  '#00bcf5ff',
-  '#77cf4fff',
-  '#d68fd6ff',
-  '#ff4365ff',
+  "#BACDB0",
+  "#5f5aa2ff",
+  "#355691ff",
+  "#88A0A8",
+  "#B4CEB3",
 ];
 
-export default function ExercisePage() {
+export default function CorePage() {
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(EXERCISES[0].duration);
   const [isRest, setIsRest] = useState(false);
@@ -35,14 +37,14 @@ export default function ExercisePage() {
       }, 1000);
     } else {
       clearInterval(timer);
-      backgroundColorIndex = currentExerciseIndex *2 % BACKGROUND_COLORS.length;
+      backgroundColorIndex = currentExerciseIndex * 2 % BACKGROUND_COLORS.length;
       setBackgroundColor(BACKGROUND_COLORS[backgroundColorIndex]);
-      
+
       if (isRest) {
         // background color change
-        backgroundColorIndex = (currentExerciseIndex *2 +1) % BACKGROUND_COLORS.length;
+        backgroundColorIndex = (currentExerciseIndex * 2 + 1) % BACKGROUND_COLORS.length;
         setBackgroundColor(BACKGROUND_COLORS[backgroundColorIndex]);
-    
+
         // Rest period is over, move to next exercise
         const nextIndex = currentExerciseIndex + 1;
 
@@ -69,11 +71,11 @@ export default function ExercisePage() {
   }, [timeLeft, isRest]);
 
   const currentExercise = EXERCISES[currentExerciseIndex];
-  
+
   return (
-    <main className={styles.main} style={{backgroundColor}}>
-      <div className={styles.timer}>{timeLeft}s</div>
-      <div className={styles.exerciseName}>
+    <main className={styles.main} style={{ backgroundColor }}>
+      <div className={styles.timer} style={{ backgroundColor }}>{timeLeft}s</div>
+      <div className={styles.exerciseName} style={{ backgroundColor }}>
         {isRest ? (
           <>
             <h2>REST</h2>
