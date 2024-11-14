@@ -14,11 +14,11 @@ const EXERCISES = [
 ];
 
 const BACKGROUND_COLORS = [
-  "#BACDB0",
+  "#CE8964",
   "#5f5aa2ff",
   "#355691ff",
   "#88A0A8",
-  "#B4CEB3",
+  "#D16666",
 ];
 
 export default function CorePage() {
