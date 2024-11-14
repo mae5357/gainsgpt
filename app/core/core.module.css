@@ -6,6 +6,7 @@
   height: 80vh;
   padding: 16px;
   text-align: center;
+  color: var(--text-light);
 }
 
 .timer {
@@ -40,13 +41,13 @@
 }
 
 .skipButton {
-  background-color: var(--onyx); 
   border: 2px solid var(--text-light);
   border-radius: 4px;
   font-size: 16px;
   padding: 8px 16px;
   margin-top: 16px;
   cursor: pointer;
+  color: var(--raisin-black);
 }
 
 

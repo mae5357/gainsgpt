@@ -1,4 +1,3 @@
-// app/components/ExerciseBlock.js
 import styles from './ExerciseBlock.module.css';
 
 export default function ExerciseBlock({ exercise }) {
@@ -17,8 +16,6 @@ export default function ExerciseBlock({ exercise }) {
                     <strong>Reps:</strong> {exercise.reps}
                 </p>
             </div>
-
-
         </div>
     );
 }
