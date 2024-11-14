@@ -21,6 +21,8 @@ const BACKGROUND_COLORS = [
   "#D16666",
 ];
 
+const restDuration = 10;
+
 export default function CorePage() {
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(EXERCISES[0].duration);
@@ -63,7 +65,7 @@ export default function CorePage() {
       } else {
         // Exercise period is over, start rest period
         setIsRest(true);
-        setTimeLeft(1); // Rest duration of 1 second
+        setTimeLeft(restDuration); // Rest duration of 1 second
       }
     }
 
