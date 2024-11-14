@@ -1,6 +1,7 @@
 .main {
   padding: 16px;
   text-align: center;
+  color: var(--text-light);
 }
 
 @media (min-width: 768px) {
