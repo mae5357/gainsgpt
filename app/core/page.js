@@ -1,5 +1,3 @@
-// app/exercise/page.js
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -20,69 +18,65 @@ const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
 export default function CorePage() {
   const { data, error } = useGoogleSheetData({ sheetId, range, apiKey });
-
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(30); // Default initial duration
+  const [timeLeft, setTimeLeft] = useState(30);
   const [isRest, setIsRest] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState(BACKGROUND_COLORS[0]);
-  const restDuration = 1;
+  
+  const restDuration = 20; // Adjust as needed
+  const EXERCISES = data ? data.map((row) => ({ name: row[0], duration: parseInt(row[1], 10) })) : [];
 
-  const EXERCISES = data 
-    ? data.map((row) => ({ name: row[0], duration: parseInt(row[1], 10) }))
-    : []; 
-
-    console.log(EXERCISES);
-
+  // Handle countdown timer
   useEffect(() => {
-    if (!data || EXERCISES.length === 0) return;
+    if (timeLeft <= 0) return; // Stop if no time left
 
-    setTimeLeft(EXERCISES[currentExerciseIndex].duration);
+    const timer = setInterval(() => {
+      setTimeLeft(prevTimeLeft => prevTimeLeft - 1);
+    }, 1000);
 
-    let timer = null;
-    let backgroundColorIndex = 0;
+    return () => clearInterval(timer); // Clean up the interval on component unmount
+  }, [timeLeft]);
 
-    if (timeLeft > 0) {
-      timer = setInterval(() => {
-        setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
-      }, 1000);
-    } else {
-      clearInterval(timer);
-      backgroundColorIndex = (currentExerciseIndex * 2) % BACKGROUND_COLORS.length;
-      setBackgroundColor(BACKGROUND_COLORS[backgroundColorIndex]);
+  // Handle switching between exercises and rest periods
+  useEffect(() => {
+    if (timeLeft > 0 || !data || EXERCISES.length === 0) return;
 
-      if (isRest) {
-        backgroundColorIndex = (currentExerciseIndex * 2 + 1) % BACKGROUND_COLORS.length;
-        setBackgroundColor(BACKGROUND_COLORS[backgroundColorIndex]);
-
-        const nextIndex = currentExerciseIndex + 1;
-
-        if (nextIndex < EXERCISES.length) {
-          setCurrentExerciseIndex(nextIndex);
-          setTimeLeft(EXERCISES[nextIndex].duration);
-          setIsRest(false);
-        } else {
-          setCurrentExerciseIndex(0);
-          setTimeLeft(EXERCISES[0].duration);
-          setIsRest(false);
-        }
+    // Time is up, switch to rest or next exercise
+    let nextBackgroundColorIndex;
+    if (isRest) {
+      // Transition from rest to the next exercise
+      const nextIndex = currentExerciseIndex + 1;
+      if (nextIndex < EXERCISES.length) {
+        setCurrentExerciseIndex(nextIndex);
+        setTimeLeft(EXERCISES[nextIndex].duration);
+        setIsRest(false);
       } else {
-        setIsRest(true);
-        setTimeLeft(restDuration);
+        // Restart at the beginning
+        setCurrentExerciseIndex(0);
+        setTimeLeft(EXERCISES[0].duration);
+        setIsRest(false);
       }
+      nextBackgroundColorIndex = (currentExerciseIndex * 2 + 1) % BACKGROUND_COLORS.length;
+    } else {
+      // Transition from exercise to rest
+      setIsRest(true);
+      setTimeLeft(restDuration);
+      nextBackgroundColorIndex = (currentExerciseIndex * 2) % BACKGROUND_COLORS.length;
     }
 
-    return () => clearInterval(timer);
-  }, [timeLeft, isRest, data]);
+    setBackgroundColor(BACKGROUND_COLORS[nextBackgroundColorIndex]);
+  }, [timeLeft, isRest, data, currentExerciseIndex]);
 
   if (error) return <p>Error loading exercises.</p>;
-
   if (!data || EXERCISES.length === 0) return <p>Loading...</p>;
 
   const currentExercise = EXERCISES[currentExerciseIndex];
 
   return (
     <main className={styles.main} style={{ backgroundColor }}>
-      <div className={styles.timer} style={{ backgroundColor }}>{timeLeft}s</div>
+      <div className={styles.timer} style={{ backgroundColor }}>
+        {timeLeft}s
+      </div>
       <div className={styles.exerciseName} style={{ backgroundColor }}>
         {isRest ? (
           <>
