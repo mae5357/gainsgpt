@@ -4,14 +4,7 @@
 
 import { useState, useEffect } from 'react';
 import styles from './core.module.css';
-
-const EXERCISES = [
-  { name: 'bird dogs', duration: 30 },
-  { name: 'Side planks w/dips', duration: 30 },
-  { name: 'Russian twists', duration: 30 },
-  { name: 'Pushups', duration: 30 },
-  { name: '6 inches', duration: 30 },
-];
+import useGoogleSheetData from '../components/GoogleSheetData.js';
 
 const BACKGROUND_COLORS = [
   "#CE8964",
@@ -21,15 +14,30 @@ const BACKGROUND_COLORS = [
   "#D16666",
 ];
 
-const restDuration = 10;
+const sheetId = '1uaGTy7ZnJrpFcrxW4p8NPvm3Sv7wJXLIMOg8IvBGyJ8';
+const range = 'Sheet1!A2:B5';
+const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
 export default function CorePage() {
+  const { data, error } = useGoogleSheetData({ sheetId, range, apiKey });
+
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(EXERCISES[0].duration);
+  const [timeLeft, setTimeLeft] = useState(30); // Default initial duration
   const [isRest, setIsRest] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState(BACKGROUND_COLORS[0]);
+  const restDuration = 1;
+
+  const EXERCISES = data 
+    ? data.map((row) => ({ name: row[0], duration: parseInt(row[1], 10) }))
+    : []; 
+
+    console.log(EXERCISES);
 
   useEffect(() => {
+    if (!data || EXERCISES.length === 0) return;
+
+    setTimeLeft(EXERCISES[currentExerciseIndex].duration);
+
     let timer = null;
     let backgroundColorIndex = 0;
 
@@ -39,38 +47,36 @@ export default function CorePage() {
       }, 1000);
     } else {
       clearInterval(timer);
-      backgroundColorIndex = currentExerciseIndex * 2 % BACKGROUND_COLORS.length;
+      backgroundColorIndex = (currentExerciseIndex * 2) % BACKGROUND_COLORS.length;
       setBackgroundColor(BACKGROUND_COLORS[backgroundColorIndex]);
 
       if (isRest) {
-        // background color change
         backgroundColorIndex = (currentExerciseIndex * 2 + 1) % BACKGROUND_COLORS.length;
         setBackgroundColor(BACKGROUND_COLORS[backgroundColorIndex]);
 
-        // Rest period is over, move to next exercise
         const nextIndex = currentExerciseIndex + 1;
 
-        // Check if there are more exercises
         if (nextIndex < EXERCISES.length) {
           setCurrentExerciseIndex(nextIndex);
           setTimeLeft(EXERCISES[nextIndex].duration);
           setIsRest(false);
         } else {
-          // Workout is complete
-          // Reset or handle completion as desired
           setCurrentExerciseIndex(0);
           setTimeLeft(EXERCISES[0].duration);
           setIsRest(false);
         }
       } else {
-        // Exercise period is over, start rest period
         setIsRest(true);
-        setTimeLeft(restDuration); // Rest duration of 1 second
+        setTimeLeft(restDuration);
       }
     }
 
     return () => clearInterval(timer);
-  }, [timeLeft, isRest]);
+  }, [timeLeft, isRest, data]);
+
+  if (error) return <p>Error loading exercises.</p>;
+
+  if (!data || EXERCISES.length === 0) return <p>Loading...</p>;
 
   const currentExercise = EXERCISES[currentExerciseIndex];
 

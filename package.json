@@ -5,6 +5,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "express": "^4.21.1",
+    "googleapis": "^144.0.0",
     "next": "^15.0.3",
     "nextjs": "^0.0.3",
     "react": "^18.3.1",
