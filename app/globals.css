@@ -1,12 +1,13 @@
 :root {
-  --primary-1: #fb8b24ff;
-  --primary-2: #00bcf5ff;
-  --primary-3: #77cf4fff;
-  --primary-4: #d68fd6ff;
-  --primary-5: #ff4365ff;
-
-  --text-light: #f4f4f4;
-  --text-dark: #0d1723;
+  --raisin-black: #30292fff;
+  --english-violet: #413f54ff;
+  --ultra-violet: #5f5aa2ff;
+  --yinmn-blue: #355691ff;
+  --onyx: #3f4045ff;
+  --bone: #CCC7B9;
+  
+  --text-dark: var(--raisin-black);
+  --text-light: #F0F3F5;
 }
 
 * {
@@ -15,21 +16,22 @@
   padding: 0;
 }
 
+.rootLayout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 body {
   font-family: Arial, sans-serif;
+  background-color: var(--english-violet);
 }
 
 
 header,
 footer {
-  color: var(--text-dark);
+  color: var(--text-light);
   padding: 1rem 0;
-}
-
-main {
-  max-width: 38rem;
-  padding: 2rem;
-  margin: auto;
 }
 
 @media (max-width: 768px) {
@@ -58,13 +60,10 @@ html {
   /* use system font stack: https://developer.mozilla.org/en-US/docs/Web/CSS/font-family */
   font-family: system-ui;
 
-  color: var(--text-dark)
-    /* use a light gray background color */
-
-
 }
 
 /* increase line-height for everything except headings */
 body :not(:is(h1, h2, h3, h4, h5, h6)) {
   line-height: 1.75;
 }
+

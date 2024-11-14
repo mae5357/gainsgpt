@@ -11,10 +11,10 @@ export default function Header() {
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="/exercise">Exercise</Link>
+            <Link href="/core">Core</Link>
           </li>
           <li>
-            <Link href="/workouts">Workouts</Link>
+            <Link href="/lift">Lift</Link>
           </li>
         </ul>
       </nav>

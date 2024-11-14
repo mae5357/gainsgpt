@@ -1,5 +1,3 @@
-/* app/exercise/exercise.module.css */
-
 .main {
   display: flex;
   flex-direction: column;
@@ -8,6 +6,10 @@
   height: 80vh;
   padding: 16px;
   text-align: center;
+  color: var(--text-light);
+  border-radius: 15px;
+  transition: background-color 0.5s ease; /* Smooth transition for background color */
+
 }
 
 .timer {
@@ -24,7 +26,7 @@
 .exerciseName p {
   font-size: 18px;
   margin-top: 8px;
-  color: var(--text-dark);
+  color: var(--text-light);
 }
 
 @media (min-width: 768px) {
@@ -42,20 +44,15 @@
 }
 
 .skipButton {
-  background-color: var(--text-light); 
   border: 2px solid var(--text-light);
   border-radius: 4px;
-  color: var(--text-dark);
   font-size: 16px;
   padding: 8px 16px;
   margin-top: 16px;
   cursor: pointer;
+  color: var(--raisin-black);
 }
 
-.skipButton:hover {
-  background-color: var(--text-dark);
-  border: 2px solid var(--text-dark);
-  color: var(--text-light);}
 
 .skipButton:active {
   transform: scale(0.95);
