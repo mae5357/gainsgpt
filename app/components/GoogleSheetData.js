@@ -1,4 +1,3 @@
-// app/components/GoogleSheetData.js
 import { useEffect, useState } from 'react';
 
 const useGoogleSheetData = ({ sheetId, range, apiKey }) => {

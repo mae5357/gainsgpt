@@ -23,42 +23,36 @@ export default function CorePage() {
   const [isRest, setIsRest] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState(BACKGROUND_COLORS[0]);
   
-  const restDuration = 20; // Adjust as needed
+  const restDuration = 20;
   const EXERCISES = data ? data.map((row) => ({ name: row[0], duration: parseInt(row[1], 10) })) : [];
 
-  // Handle countdown timer
   useEffect(() => {
-    if (timeLeft <= 0) return; // Stop if no time left
+    if (timeLeft <= 0) return; 
 
     const timer = setInterval(() => {
       setTimeLeft(prevTimeLeft => prevTimeLeft - 1);
     }, 1000);
 
-    return () => clearInterval(timer); // Clean up the interval on component unmount
+    return () => clearInterval(timer); 
   }, [timeLeft]);
 
-  // Handle switching between exercises and rest periods
   useEffect(() => {
     if (timeLeft > 0 || !data || EXERCISES.length === 0) return;
 
-    // Time is up, switch to rest or next exercise
     let nextBackgroundColorIndex;
     if (isRest) {
-      // Transition from rest to the next exercise
       const nextIndex = currentExerciseIndex + 1;
       if (nextIndex < EXERCISES.length) {
         setCurrentExerciseIndex(nextIndex);
         setTimeLeft(EXERCISES[nextIndex].duration);
         setIsRest(false);
       } else {
-        // Restart at the beginning
         setCurrentExerciseIndex(0);
         setTimeLeft(EXERCISES[0].duration);
         setIsRest(false);
       }
       nextBackgroundColorIndex = (currentExerciseIndex * 2 + 1) % BACKGROUND_COLORS.length;
     } else {
-      // Transition from exercise to rest
       setIsRest(true);
       setTimeLeft(restDuration);
       nextBackgroundColorIndex = (currentExerciseIndex * 2) % BACKGROUND_COLORS.length;
